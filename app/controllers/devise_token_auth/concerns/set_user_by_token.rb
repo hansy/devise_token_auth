@@ -24,7 +24,7 @@ module DeviseTokenAuth::Concerns::SetUserByToken
   def ensure_pristine_resource
     if @resource.changed?
       # Stash pending changes in the resource before reloading.
-      changes = @resource.changes
+      changes = @resource.changes.transform_values(&:last)
       @resource.reload
     end
     yield
